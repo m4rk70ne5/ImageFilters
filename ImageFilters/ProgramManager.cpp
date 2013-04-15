@@ -1,10 +1,19 @@
 #include "ProgramManager.h"
 
+ProgramManager* ProgramManager::instance = NULL;
+
 ProgramManager::ProgramManager()
 {
 }
 
-void AddProgram(string programName, int programID)
+ProgramManager* ProgramManager::GetProgramManager()
+{
+	if (instance == NULL)
+		instance = new ProgramManager();
+	return instance;
+}
+
+void ProgramManager::AddProgram(string programName, int programID)
 {
 	programHash[programName] = programID;
 }
@@ -122,7 +131,7 @@ GLchar* ProgramManager::FileToString(ifstream* pIf)
 		return NULL;
 }
 
-int GetProgram(string name)
+int ProgramManager::GetProgram(string name)
 {
 	return programHash[name];
 }

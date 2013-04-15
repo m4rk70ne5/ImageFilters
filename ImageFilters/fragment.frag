@@ -1,0 +1,1 @@
+smooth in vec4 thecolor; //color fragment input

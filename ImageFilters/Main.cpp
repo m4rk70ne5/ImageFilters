@@ -15,6 +15,12 @@ void InitApp()
 
 	pApp = new App(min, max);
 	//now add textures and programs to the App
+	TextureManager* pTextureManager = TextureManager::GetTextureManager();
+	pTextureManager->AddTexture("picture.bmp");
+	//programs
+	ProgramManager* pProgramManager = ProgramManager::GetProgramManager();
+	int programID = pProgramManager->CreateProgram("vertexShader.vert", "fragmentShader.vert");
+	pProgramManager->AddProgram("program1", programID);
 }
 
 int main(int nArgs, char* args[])
