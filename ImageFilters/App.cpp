@@ -1,12 +1,12 @@
 #include "App.h"
 
-App::App(vec2 min, vec2 max)
+App::App()
 {
-	pScreen = new Screen(min.x, min.y, max.x, max.y);
 	done = false;
+	//set up glfw
+	glfwInit();
 }
 
 App::~App()
 {
-	delete pScreen;
 }

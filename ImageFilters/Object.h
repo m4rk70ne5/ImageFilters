@@ -1,11 +1,18 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "base.h"
+
 class Object
 {
-	virtual void HandleInput(bool*, Object*);
-	virtual void Render(Object*);
-	virtual void Update(Object*);
+	protected:
+		Object* objList;
+	public:
+		Object();
+		virtual void HandleInput(bool*);
+		virtual void Render();
+		virtual void Update();
+		void AddObject(Object*);
 };
 
 #endif

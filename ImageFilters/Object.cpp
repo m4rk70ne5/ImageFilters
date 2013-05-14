@@ -1,19 +1,38 @@
 #include "Object.h"
 
-void Object::HandleInput(bool* bKeys, Object* objects)
+Object::Object()
 {
-     foreach object in objects
-       object->HandleInput(bKeys, NULL)
+	objList = NULL;
 }
 
-void Object::Render(Object* objects)
+void Object::HandleInput(bool* bKeys)
 {
-     foreach object in objects
-       object->Render(NULL)
+    //glfwGetKey(int key); <- returns either GLFW_PRESS or GLFW_RELEASE
+	//go through the linked list
+	for (Object* pO = this; pO != NULL; pO = pO->objList)
+	    pO->HandleInput(bKeys);
 }
 
-void Object::Update(Object* objects)
+void Object::Render()
 {
-     foreach object in objects
-       object->Update(NULL)
+     //go through the linked list
+	 for (Object* pO = this; pO != NULL; pO = pO->objList)
+       pO->Render();
+}
+
+void Object::Update()
+{
+     //go through the linked list
+	 for (Object* pO = this; pO != NULL; pO = pO->objList)
+       pO->Update();
+}
+
+void Object::AddObject(Object* obj)
+{
+	Object* pO = this;
+	while (pO->objList != NULL)
+		pO = pO->objList;
+	//once an empty spot is found (NULL)
+	//put it there
+	pO->objList = obj;
 }

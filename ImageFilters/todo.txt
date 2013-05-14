@@ -1,0 +1,2 @@
+1) figure out what texture coordinates to pass into the vertex shader
+   a) once the coordinates are in the vertex shader, figure out what to do with it

@@ -1,6 +1,6 @@
 #include "Quad.h"
 
-Quad::Quad(vec4* vertices, int numVertices, int* indices, int numIndices, string textureName)
+Quad::Quad(vec4* vertices, int numVertices, int* indices, int numIndices, string textureName, string programName) : programName(programName)
 {
 	//try to load texture
 	TextureManager* pTextureManager = TextureManager::GetTextureManager();
