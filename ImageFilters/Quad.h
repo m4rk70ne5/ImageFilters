@@ -26,12 +26,13 @@ class Quad : public Object
 		string programName;
 		int numVertices, numIndices;
 		vec4* vertices;
+		vec2* texCoords;
 		int* vertexIndices;
-		GLuint vertexBufferID, indexBufferID;
+		GLuint vertexBufferID, texCoordBufferID, indexBufferID;
 		void CreateBuffers();
 		void InitAttributePointers();
 	public:
-		Quad(vec4*, int, int*, int, string, string);
+		Quad(vec2*, int*, int, string, string);
 		~Quad();
 }
 

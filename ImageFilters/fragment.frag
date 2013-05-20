@@ -1,8 +1,10 @@
 #version 430
 
 out vec4 color; //color fragment output
-in vec2 texCoord;
-uniform sampler2D texture; //the texture sampler
+in vec2 texCoord; //uv texture coordinates (interpolated and clamped to [0.5,.95])
+				  // hopefully, since the quad the texture is being mapped to is of the same size as the texture
+				  // there will be a one-to-one correspondence between the sample coordinates of the texture and quad
+uniform sampler2D tex; //the texture sampler
 
 float[9] blurFilter = float[](0, 1/8, 0,
 							1/8, 1/2, 1/8,
@@ -20,7 +22,7 @@ vec4[9] GetTextureMatrix()
 	for (int i = -1; i <= 1; i++)
 	{
 		for(int j = -1; i <= 1; j++, k++)
-			mat[k] = texture(texture, textureCoord.xy + vec2(i * texUnit, j * texUnit));
+			mat[k] = texture(tex, texCoord.xy + vec2(i * texUnit, j * texUnit)).rgba;
 	}
 	return mat;
 }
