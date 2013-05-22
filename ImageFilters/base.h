@@ -5,4 +5,7 @@
 #include <gl/wglew.h>
 #include <gl/glfw.h>
 
+#include <vector>
+#include <map>
+
 #endif

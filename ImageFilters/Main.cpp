@@ -39,6 +39,8 @@ int main(int nArgs, char* args[])
 	while(!pApp->done)
 	{
 		//"game" loop
+		pApp->HandleInput(); //input
+		//graphics
 	}
 	delete pApp;
 }

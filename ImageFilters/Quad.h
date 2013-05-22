@@ -34,6 +34,7 @@ class Quad : public Object
 	public:
 		Quad(vec2*, int*, int, string, string);
 		~Quad();
+		virtual void HandleInput(bool*);
 }
 
 #endif

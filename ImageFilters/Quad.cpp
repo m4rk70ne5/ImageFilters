@@ -72,3 +72,7 @@ void Quad::InitAttributePointers()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
+
+void Quad::HandleInput(bool* bkeys)
+{
+}

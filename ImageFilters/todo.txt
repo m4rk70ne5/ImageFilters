@@ -6,3 +6,7 @@
 1) Register key inputs
 2) The + and - keys will raise/lower the scale factor uniform of kernel image
    - implement scale factor in fragment shader
+
+----
+
+Make sure everything is cleaned up!
