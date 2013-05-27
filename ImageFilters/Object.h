@@ -5,7 +5,9 @@
 
 using namespace std;
 
-typedef void (*pfuncVoid)();
+class Object;  // forward declaration
+
+typedef void (*pfuncVoid)(Object*);
 
 struct tKey
 {

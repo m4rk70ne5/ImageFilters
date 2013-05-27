@@ -38,8 +38,8 @@ int ProgramManager::CreateProgram(string vertexShader, string fragmentShader, st
 		//it won't indicate if it didn't compile correctly
 		//so you must first compile this shader using a separate shader compiler
 		//that tells you your errors
-		
-		glShaderSource(vertShader, 1, &vertShaderString, NULL);
+
+		glShaderSource(vertShader, 1, (const GLchar**)&vertShaderString, NULL);
 		glCompileShader(vertShader); //vertex shader
 
 		//now attach it to the program
@@ -55,7 +55,7 @@ int ProgramManager::CreateProgram(string vertexShader, string fragmentShader, st
 		fragShaderString = FileToString(&fragFile);
 		fragFile.close();
 
-		glShaderSource(fragShader, 1, &fragShaderString, NULL);
+		glShaderSource(fragShader, 1, (const GLchar**)&fragShaderString, NULL);
 		glCompileShader(fragShader); //fragment shader
 
 		glAttachShader(program, fragShader);
@@ -69,7 +69,7 @@ int ProgramManager::CreateProgram(string vertexShader, string fragmentShader, st
 		geoShaderString = FileToString(&geoFile);
 		geoFile.close();
 
-		glShaderSource(geoShader, 1, &geoShaderString, NULL);
+		glShaderSource(geoShader, 1, (const GLchar**)&geoShaderString, NULL);
 		glCompileShader(geoShader); //fragment shader
 
 		glAttachShader(program, geoShader);
@@ -123,7 +123,7 @@ GLchar* ProgramManager::FileToString(ifstream* pIf)
 
 		//read in the file
 		pIf->read((GLchar*)shaderString, length);
-		shaderString[length] = '\0'; //null-terminate it
+		shaderString[(int)length] = '\0'; //null-terminate it
 
 		return shaderString;
 	}

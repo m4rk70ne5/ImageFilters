@@ -11,6 +11,7 @@ class Screen : public Object
 	public:
 		Screen(float, float, float, float); //min x and y, max x and y
 		~Screen();
+		void SetMatrixUniform();
 };
 
 #endif

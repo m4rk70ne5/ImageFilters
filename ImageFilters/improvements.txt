@@ -1,0 +1,12 @@
+For Better Design Next Time:
+  - Make sure the App is a singleton
+  - Make sure individual objects store program IDs rather than program strings
+  - Make a better key handling mechanism
+  - The Screen was basically the App -- combine them into one next time
+  - Use uniform blocks
+  - Have the Program Manager work with shader related tasks (e.g., setting uniforms)
+  - Delegate more computation load to the shader (pass it keypress info)
+
+Specific to this Image Filters app:
+  - Have the blur and sharpening filters to separate programs
+  - The blur filter should blur according to radius

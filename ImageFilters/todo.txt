@@ -9,4 +9,13 @@
 
 ----
 
+Fix function pointer issues
+Implement functions
+
 Make sure everything is cleaned up!
+
+----
+
+Flip Image
+Restore shaders back to their original code
+Test key presses

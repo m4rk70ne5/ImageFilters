@@ -7,7 +7,7 @@ Screen::Screen(float x, float y, float x2, float y2)
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glfwOpenWindow(x2 - x, y2 - y, 8,8,8,8,32,0, GLFW_WINDOW);
+	glfwOpenWindow((int)(x2 - x), (int)(y2 - y), 8,8,8,8,32,0, GLFW_WINDOW);
      
 	//set up glew, now that a context has been created with glfwOpenWindow
 	glewExperimental = GL_TRUE;
@@ -28,6 +28,17 @@ Screen::Screen(float x, float y, float x2, float y2)
 	projectionMatrix[15] = 1.0f;
 	projectionMatrix[12] = -((x2 + x)/(x2 - x));
 	projectionMatrix[13] = -((y2 + y)/(y2 - y));
+}
+
+Screen::~Screen()
+{
+	// delete the next object in the list
+	if (objList != NULL)
+		delete objList;
+}
+
+void Screen::SetMatrixUniform()
+{
 	//now set the uniform once and for all
 	ProgramManager* pPM = ProgramManager::GetProgramManager();
 	GLint program = pPM->GetProgram("program1");

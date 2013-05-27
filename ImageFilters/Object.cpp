@@ -8,12 +8,14 @@ Object::Object()
 Object::~Object()
 {
 	// delete keys
+	for (size_t i = 0; i < keys.size(); i++)
+		delete keyMap[keys[i]];
 }
 
 void Object::HandleInput()
 {
     //go through all registered key handlers
-	for (int i = 0; i < keys.size(); i++)
+	for (size_t i = 0; i < keys.size(); i++)
 	{
 		int pressState = glfwGetKey(keys[i]); // returns either GLFW_PRESS or GLFW_RELEASE
 		tKey* temp = keyMap[keys[i]];
@@ -21,14 +23,14 @@ void Object::HandleInput()
 		{
 			// if holds are allowed
 			if (temp->depressedFlag = (pressState == GLFW_PRESS))
-				temp->keyFunction(); // just execute the function as long as the key is depressed
+				temp->keyFunction(this); // just execute the function as long as the key is depressed
 		}
 		else
 		{
 			if (pressState == GLFW_PRESS && temp->depressedFlag == false)
 			{
 				// key must have been previously "undepressed" in order for function to execute
-				temp->keyFunction();
+				temp->keyFunction(this);
 				temp->depressedFlag = true;
 			}
 			else if (pressState == GLFW_RELEASE && temp->depressedFlag == true)
@@ -36,22 +38,28 @@ void Object::HandleInput()
 		}
 	}
 	//go through the linked list
-	for (Object* pO = this->objList; pO != NULL; pO = pO->objList)
-	    pO->HandleInput();
+	// for (Object* pO = this->objList; pO != NULL; pO = pO->objList)
+	//    pO->HandleInput();
+	Object* pO = objList;
+	if (pO != NULL)
+		pO->HandleInput(); // travel down the linked list
 }
 
 void Object::Render()
 {
      //go through the linked list
-	 for (Object* pO = this; pO != NULL; pO = pO->objList)
-       pO->Render();
+	 // for (Object* pO = this->objList; pO != NULL; pO = pO->objList)
+     //  pO->Render();
+	Object* pO = objList;
+	if (pO != NULL) // if there is actually another object
+		pO->Render();
 }
 
 void Object::Update()
 {
      //go through the linked list
-	 for (Object* pO = this; pO != NULL; pO = pO->objList)
-       pO->Update();
+	 // for (Object* pO = this->objList; pO != NULL; pO = pO->objList)
+     //  pO->Update();
 }
 
 void Object::AddObject(Object* obj)
@@ -59,6 +67,7 @@ void Object::AddObject(Object* obj)
 	Object* pO = this;
 	while (pO->objList != NULL)
 		pO = pO->objList;
+
 	//once an empty spot is found (NULL)
 	//put it there
 	pO->objList = obj;
