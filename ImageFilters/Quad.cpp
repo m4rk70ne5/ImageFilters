@@ -15,13 +15,19 @@ void IncreaseScale(Object* o)
 
 	if (pQ->filterIndex == 1) // unsharp mask
 	{
-		if (pQ->kernelScale < 1.0f)
-			AdjustScale(pQ->kernelScale + 0.1f, prog);
+		if (pQ->kernelScale < 2.5f)
+		{
+			AdjustScale(pQ->kernelScale + 0.4f, prog);
+			pQ->kernelScale += 0.4f;
+		}
 	}
 	else // blur filter
 	{
 		if (pQ->kernelScale < 64.0f)
+		{
 			AdjustScale(pQ->kernelScale * 2.0f, prog);
+			pQ->kernelScale *= 2.0f;
+		}
 	}
 }
 
@@ -34,13 +40,19 @@ void DecreaseScale(Object* o)
 
 	if (pQ->filterIndex == 1) // unsharp mask
 	{
-		if (pQ->kernelScale > 0.0f)
-			AdjustScale(pQ->kernelScale-0.1f, prog);
+		if (pQ->kernelScale > 0.5f)
+		{
+			AdjustScale(pQ->kernelScale - 0.4f, prog);
+			pQ->kernelScale -= 0.4f;
+		}
 	}
 	else // blur filter
 	{
 		if (pQ->kernelScale > 1.0f)
+		{
 			AdjustScale(pQ->kernelScale / 2.0f, prog);
+			pQ->kernelScale /= 2.0f;
+		}
 	}
 }
 
@@ -53,7 +65,7 @@ void ResetScale(Object* o)
 	GLint prog = pPM->GetProgram(pQ->programName);
 	GLint scaleLoc = glGetUniformLocation(prog, "kernelAmount");
 	if (pQ->filterIndex == 1) // if it's the unsharp masking filter
-		pQ->kernelScale = 0.0f; // set the scale to 0
+		pQ->kernelScale = 0.5f; // set the scale to 0.5
 	else // if it's the blur filter
 		pQ->kernelScale = 1.0f; // set the scale to 1
 	glProgramUniform1f(prog, scaleLoc, pQ->kernelScale); 
@@ -69,7 +81,9 @@ void ChangeKernels(Object* o)
 	GLint prog = pPM->GetProgram(pQ->programName);
 	GLint fiLoc = glGetUniformLocation(prog, "filterIndex");
 
-	glProgramUniform1i(prog, fiLoc, pQ->filterIndex); 
+	glProgramUniform1i(prog, fiLoc, pQ->filterIndex);
+
+	ResetScale(pQ); // reset whenever the kernel changes so the amount isn't preposterous
 }
 
 Quad::Quad(vec2* dimensions, GLuint* indices, int nIndices, string textureName, string programName) : programName(programName)
@@ -104,7 +118,7 @@ Quad::Quad(vec2* dimensions, GLuint* indices, int nIndices, string textureName, 
 	glProgramUniform1i(prog, texLoc, 0);
 
 	// set the filter uniforms
-	kernelScale = 0.0f;
+	kernelScale = 0.5f;
 	filterIndex = 1;
 	GLint scaleLoc = glGetUniformLocation(prog, "kernelAmount");
 	GLint fiLoc = glGetUniformLocation(prog, "filterIndex");
@@ -125,9 +139,9 @@ Quad::Quad(vec2* dimensions, GLuint* indices, int nIndices, string textureName, 
 	InitAttributePointers();
 
 	// now, register the keys that this object will be using
-	RegisterKey('+', IncreaseScale, false);
-	RegisterKey('-', DecreaseScale, false);
-	RegisterKey('r', ResetScale, false);
+	RegisterKey(GLFW_KEY_KP_ADD, IncreaseScale, false);
+	RegisterKey(GLFW_KEY_KP_SUBTRACT, DecreaseScale, false);
+	RegisterKey('R', ResetScale, false);
 	RegisterKey(GLFW_KEY_SPACE, ChangeKernels, false);
 }
 

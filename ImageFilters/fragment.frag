@@ -27,7 +27,7 @@ vec4[9] GetTextureMatrix()
 	int k = 0;
 	for (int i = -1; i <= 1; i++)
 	{
-		for(int j = -1; i <= 1; j++, k++)
+		for(int j = -1; j <= 1; j++, k++)
 			mat[k] = texture(tex, gTexCoord.xy + vec2(i * texUnit, j * texUnit)).rgba;
 	}
 	return mat;
