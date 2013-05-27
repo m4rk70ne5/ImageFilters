@@ -1,0 +1,21 @@
+1) figure out what texture coordinates to pass into the vertex shader
+   a) once the coordinates are in the vertex shader, figure out what to do with it
+
+----
+
+1) Register key inputs
+2) The + and - keys will raise/lower the scale factor uniform of kernel image
+   - implement scale factor in fragment shader
+
+----
+
+Fix function pointer issues
+Implement functions
+
+Make sure everything is cleaned up!
+
+----
+
+Flip Image
+Restore shaders back to their original code
+Test key presses
